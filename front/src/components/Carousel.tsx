@@ -11,16 +11,14 @@ const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        // appelle API Laravel (qui fait le pont avec Supabase)
-        fetch('http://127.0.0.1:8000/api/carousel')
+        fetch('http://127.0.0.1:8000/carousel')
             .then(res => res.json())
-            .then(data => setImages(data))
-            .catch(err => console.error("Erreur chargement carousel:", err));
+            .then(data => {
+                console.log("Images reçues :", data);
+                setImages(data);
+            })
+            .catch(err => console.error("Erreur Fetch Carousel:", err));
     }, []);
-
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    };
 
     if (images.length === 0) return <div className="p-10 text-center">Chargement des œuvres...</div>;
 
