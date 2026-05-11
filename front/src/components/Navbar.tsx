@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
+import About from '../pages/About';
 
 const Navbar = () => {
     return (
@@ -11,7 +12,7 @@ const Navbar = () => {
 
             {/* Liens Navbar */}
             <div className="hidden md:flex space-x-8 font-serif italic text-xl">
-                <Link to="/mon-histoire" className="nav-link-arty text-art-purple">
+                <Link to="/about" className="nav-link-arty text-art-purple">
                     Mon Histoire
                 </Link>
                 <Link to="/accompagnements" className="nav-link-arty text-art-purple">

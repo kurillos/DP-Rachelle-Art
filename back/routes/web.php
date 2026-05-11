@@ -14,5 +14,9 @@ use App\Http\Controllers\CarouselController;
 // Carousel
 Route::get('/carousel', [CarouselController::class, 'index']);
 
-// ormulaire de contact
+Route::fallback(function () {
+    return view('welcome');
+});
+
+// Formulaire de contact
 // Route::post('/contact', [ContactController::class, 'send']);

@@ -1,20 +1,28 @@
-import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Carousel from './components/Carousel';
 import Footer from './components/Footer';
-import AppRoutes from './routes/index';
-import './index.css';
+import About from './pages/About';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col font-sans text-gray-900">
-        <Navbar />
-        <main className="flex-grow">
-          <AppRoutes />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <div className="min-h-screen bg-black flex flex-col text-white">
+
+      <Navbar />
+
+      <main className="flex-grow flex items-center justify-center bg-black">
+        <Routes>
+          {/* Route par défaut (Accueil) */}
+          <Route path="/" element={<Carousel />} />
+
+          {/* Route pour la page About */}
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </main>
+
+      <Footer />
+
+    </div>
   );
 }
 
