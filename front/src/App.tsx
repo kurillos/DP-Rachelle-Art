@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import About from './pages/About';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Accompagnements from './pages/Accompagnements';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
 
           {/* Route pour la page Accompagnements */}
           <Route path="/accompagnements" element={<Accompagnements />} />
+
+          {/* Route pour la page Contact */}
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
 
