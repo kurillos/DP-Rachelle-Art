@@ -3,6 +3,7 @@ import Carousel from './components/Carousel';
 import Footer from './components/Footer';
 import About from './pages/About';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Accompagnements from './pages/Accompagnements';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
 
           {/* Route pour la page About */}
           <Route path="/about" element={<About />} />
+
+          {/* Route pour la page Accompagnements */}
+          <Route path="/accompagnements" element={<Accompagnements />} />
         </Routes>
       </main>
 
