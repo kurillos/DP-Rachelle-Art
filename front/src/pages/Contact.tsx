@@ -69,8 +69,11 @@ const Contact = () => {
                     <div className="space-y-2">
                         <label className="text-xs uppercase tracking-widest text-gray-400 ml-1">Téléphone</label>
                         <input
-                            type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                            pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$"
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            pattern="^[0-9+\s.\-]*$"
                             className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white outline-none focus:border-art-purple transition-all"
                             placeholder="06 12 34 56 78"
                         />

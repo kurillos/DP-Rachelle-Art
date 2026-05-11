@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
-    /**
-     * Gère l'envoi du formulaire de contact.
-     */
     public function store(Request $request)
     {
-        // 1. Validation des données
+        // 1. Validation rigoureuse
         $validator = Validator::make($request->all(), [
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
@@ -21,9 +19,6 @@ class ContactController extends Controller
                 'regex:/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/'
             ],
             'message' => 'required|string|min:10',
-        ], [
-            'phone.regex' => 'Le format du numéro de téléphone est invalide.',
-            'message.min' => 'Le message doit contenir au moins 10 caractères.',
         ]);
 
         if ($validator->fails()) {
@@ -33,13 +28,27 @@ class ContactController extends Controller
             ], 422);
         }
 
-        // 2. Traitement (Optionnel : Envoi de mail ou Log)
-        // \Log::info('Nouveau contact reçu', $request->all());
+        try {
+            // 2. Envoi du mail
+            Mail::raw(
+                "Nom: {$request->name}\nEmail: {$request->email}\nTéléphone: {$request->phone}\n\nMessage :\n{$request->message}",
+                function ($message) use ($request) {
+                    $message->to('rachelleartsvisuels@proton.me')
+                        ->subject('Nouveau message de contact')
+                        ->replyTo($request->email, $request->name);
+                }
+            );
 
-        // 3. Réponse de succès
-        return response()->json([
-            'status'  => 'success',
-            'message' => 'Merci ' . $request->name . ', votre message a bien été transmis !'
-        ], 200);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Merci ' . $request->name . ', votre message a bien été envoyé !'
+            ], 200);
+        } catch (\Exception $e) {
+            // En cas de problème technique avec le serveur de mail
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Désolé, une erreur technique empêche l\'envoi du mail.'
+            ], 500);
+        }
     }
 }
